@@ -21,10 +21,13 @@ if __name__ == '__main__':
     local_image = cv2.imread(image_path)
     img = cv2.imencode('.jpg', local_image)[1].tobytes()
 
-    # Function to call the API REST
+    # Function to call the API REST with local image
     attributes = ''
-    # attributes = 'age,gender,headPose,smile,facialHair,glasses,emotion,hair,makeup,occlusion,accessories,blur,exposure,noise'
     detected_faces = utils.detect_face_stream(endpoint=ENDPOINT, key=KEY, image=img, face_attributes=attributes)
+
+    # Function to call the API REST with web image
+    image_url = "http://www.historyplace.com/kennedy/president-family-portrait-closeup.jpg"
+    detected_faces = utils.detect_face_url(endpoint=ENDPOINT, key=KEY, image_url=image_url, face_attributes=attributes)
 
     # Display the resulting frame
     color = (255, 0, 0)
