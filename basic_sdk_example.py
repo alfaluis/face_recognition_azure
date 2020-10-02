@@ -6,15 +6,7 @@ from io import BytesIO
 from PIL import Image, ImageDraw
 from azure.cognitiveservices.vision.face import FaceClient
 from msrest.authentication import CognitiveServicesCredentials
-
-
-def get_rectangle(face_dictionary):
-    rect = face_dictionary.face_rectangle
-    left = rect.left
-    top = rect.top
-    right = left + rect.width
-    bottom = top + rect.height
-    return (left, top), (right, bottom)
+import utils
 
 
 if __name__ == '__main__':
@@ -46,7 +38,8 @@ if __name__ == '__main__':
     # For each face returned use the face rectangle and draw a red box.
     draw = ImageDraw.Draw(img)
     for face in detected_faces:
-        draw.rectangle(get_rectangle(face), outline='red')
+        print(face)
+        draw.rectangle(utils.get_rectangle(face), outline='red')
 
     # Display the image in the users default image browser.
     img.show()
