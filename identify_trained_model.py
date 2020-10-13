@@ -18,7 +18,6 @@ if __name__ == '__main__':
     ENDPOINT = 'https://{0}.cognitiveservices.azure.com/'.format(args['SERVICE_NAME'])
     GROUP_ID = args['GROUP_ID']
     img_name = args['IMG_NAME']
-    # img_name = 'friend-1-test.jpg'
 
     # path to the image
     database = os.path.join(os.getcwd(), 'data')
