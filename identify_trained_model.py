@@ -18,6 +18,7 @@ if __name__ == '__main__':
     ENDPOINT = 'https://{0}.cognitiveservices.azure.com/'.format(args['SERVICE_NAME'])
     GROUP_ID = args['GROUP_ID']
     img_name = args['IMG_NAME']
+    # img_name = 'friend-1-test.jpg'
 
     # path to the image
     database = os.path.join(os.getcwd(), 'data')
@@ -28,7 +29,8 @@ if __name__ == '__main__':
 
     # Function to call the API REST with local image
     attributes = ''
-    detected_faces = utils.detect_face_stream(endpoint=ENDPOINT, key=KEY, image=img, face_attributes=attributes, recognition_model='recognition_03')
+    detected_faces = utils.detect_face_stream(endpoint=ENDPOINT, key=KEY, image=img, face_attributes=attributes,
+                                              recognition_model='recognition_03')
 
     # Identify faces from the detected
     faces_ids = [f['faceId'] for f in detected_faces]
@@ -46,6 +48,8 @@ if __name__ == '__main__':
             print('Name Group person identified: {0}'.format(person_info['name']))
             color = (0, 255, 0)
             local_image = cv2.rectangle(local_image, *utils.get_rectangle(face), color, thickness)
+            x, y = face['faceRectangle']['left'], face['faceRectangle']['top'] - 5
+            cv2.putText(local_image, person_info['name'], (x, y), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 1)
         else:
             print('no match found')
             color = (255, 0, 0)
