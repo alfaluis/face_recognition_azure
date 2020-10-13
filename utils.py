@@ -2,6 +2,7 @@ import requests
 
 
 def get_rectangle(face_info):
+    """Return corners of the rectangle. Work for SDK and API"""
     if isinstance(face_info, dict):
         rect = face_info['faceRectangle']
         left = rect['left']
@@ -18,6 +19,7 @@ def get_rectangle(face_info):
 
 
 def param_config(face_attributes):
+    """Configure the params for the API. Needed if face_attributes is different than empty"""
     if face_attributes == '':
         params = {'returnFaceId': 'true', 'returnFaceLandmarks': 'false'}
     else:
@@ -26,6 +28,7 @@ def param_config(face_attributes):
 
 
 def detect_face_stream(endpoint, key, image, face_attributes='', recognition_model='recognition_01'):
+    """Request to API to detect faces on the image. The image is loaded using OpenCV"""
     face_api_url = endpoint + '/face/v1.0/detect'
     headers = {'Ocp-Apim-Subscription-Key': key, 'Content-Type': 'application/octet-stream'}
     params = param_config(face_attributes)
@@ -36,6 +39,7 @@ def detect_face_stream(endpoint, key, image, face_attributes='', recognition_mod
 
 
 def detect_face_url(endpoint, key, image_url, face_attributes=''):
+    """POST Request to API to detect faces on the image. The image come from web"""
     face_api_url = endpoint + '/face/v1.0/detect'
     headers = {'Ocp-Apim-Subscription-Key': key, 'Content-Type': 'application/json'}
     params = param_config(face_attributes)
@@ -45,6 +49,7 @@ def detect_face_url(endpoint, key, image_url, face_attributes=''):
 
 
 def identify_faces(endpoint, key, group_id, face_id_list):
+    """POST Request to identify if detected faces are in the PersonGroup Object"""
     face_api_url = endpoint + '/face/v1.0/identify'
     headers = {'Ocp-Apim-Subscription-Key': key, 'Content-Type': 'application/json'}
     body = {
@@ -58,6 +63,7 @@ def identify_faces(endpoint, key, group_id, face_id_list):
 
 
 def get_person_info(endpoint, key, group_id, candidate_id):
+    """GET Request to retrieve the person info identified"""
     face_api_url = '{0}/face/v1.0/persongroups/{1}/persons/{2}'.format(endpoint, group_id, candidate_id)
     headers = {'Ocp-Apim-Subscription-Key': key}
     response = requests.get(face_api_url, headers=headers)
