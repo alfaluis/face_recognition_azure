@@ -1,11 +1,20 @@
+import argparse
 import cv2
 import time
 import utils
 
 
 if __name__ == '__main__':
-    KEY = '298b3b2660164139b5b0be02d2c8c219'
-    ENDPOINT = 'https://face-api-dev.cognitiveservices.azure.com/'
+    ap = argparse.ArgumentParser()
+    ap.add_argument("-k", "--KEY", required=True, help="Access key of endpoint")
+    ap.add_argument("-sn", "--SERVICE_NAME", required=True, help="Face service name")
+    args = vars(ap.parse_args())
+
+    # configure the face client
+    KEY = args['KEY']
+    ENDPOINT = 'https://{0}.cognitiveservices.azure.com/'.format(args['SERVICE_NAME'])
+
+
     vid = cv2.VideoCapture(0)
     count = 0
     while True:
