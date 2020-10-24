@@ -9,12 +9,12 @@ if __name__ == '__main__':
     # configure arguments
     ap = argparse.ArgumentParser()
     ap.add_argument("-k", "--KEY", required=True, help="Access key of endpoint")
-    ap.add_argument("-ep", "--ENDPOINT", required=True, help="Endpoint to the face service")
+    ap.add_argument("-sn", "--SERVICE_NAME", required=True, help="Face service name")
     args = vars(ap.parse_args())
 
     # configure the face client
     KEY = args['KEY']
-    ENDPOINT = args['ENDPOINT']
+    ENDPOINT = 'https://{0}.cognitiveservices.azure.com/'.format(args['SERVICE_NAME'])
 
     # load an image
     image_path = os.path.join(os.getcwd(), 'data', 'president-family.jpg')
