@@ -14,14 +14,16 @@ if __name__ == '__main__':
     KEY = args['KEY']
     ENDPOINT = 'https://{0}.cognitiveservices.azure.com/'.format(args['SERVICE_NAME'])
 
-
+    # create a video object and configure size of the output image
     vid = cv2.VideoCapture(0)
+    vid.set(cv2.CAP_PROP_FRAME_WIDTH, 320)
+    vid.set(cv2.CAP_PROP_FRAME_HEIGHT, 240)
+
     count = 0
     while True:
         ret, frame = vid.read()
         img = cv2.imencode('.jpg', frame)[1].tobytes()
         detected_faces = utils.detect_face_stream(endpoint=ENDPOINT, key=KEY, image=img)
-
         print('Image num {} face detected {}'.format(count, detected_faces))
         count += 1
         color = (255, 0, 0)
