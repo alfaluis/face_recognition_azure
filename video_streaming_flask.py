@@ -6,11 +6,13 @@ import cv2
 import utils
 
 app = Flask(__name__)
+HEIGHT = 240
+WIDTH = 320
 
 
 @app.route('/')
 def index():
-    return render_template('index.html', w=320, h=240)
+    return render_template('index.html', w=WIDTH, h=HEIGHT)
 
 
 def gen():
