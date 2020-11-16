@@ -1,0 +1,19 @@
+<html>
+<head>
+    <style>
+        div.video {height: 80vh; overflow: auto; display: flex; justify-content: center;}
+        div.title {height: 10vh; overflow: auto; text-align: center;}
+        img {style: width:{{w}}px;height:{{h}}px; align-self: flex-start;}
+    </style>
+    <title>Video Streaming Demonstration</title>
+  </head>
+  <body>
+    <div class="title">
+        <h2>Face Recognition</h2>
+    </div>
+    <div class="video">
+        <img src="{{ url_for('video_feed') }}">
+<!--        <img src="./mainPicture.png">-->
+    </div>
+  </body>
+</html>
